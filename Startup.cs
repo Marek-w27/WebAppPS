@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAppPS.Models;
 
 namespace WebAppPS
 {
@@ -27,6 +28,8 @@ namespace WebAppPS
         {
 
             services.AddControllers();
+            services.AddDbContext<RekrutacjaContext>();
+            services.AddAutoMapper(this.GetType().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
