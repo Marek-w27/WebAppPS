@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebAppPS.Entity;
 
 #nullable disable
 
@@ -15,8 +16,10 @@ namespace WebAppPS.Models
         {
         }
 
-        public virtual DbSet<Klienci> Kliencis { get; set; }
+        public virtual DbSet<Klienci> Klienci { get; set; }
         public virtual DbSet<KlienciKontrahenci> KlienciKontrahencis { get; set; }
+
+        public virtual DbSet<Weryfikacja> Weryfikacja { set; get; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
@@ -90,7 +93,32 @@ namespace WebAppPS.Models
                     .HasConstraintName("FK__klienci_k__IdKon__276EDEB3");
             });
 
-            OnModelCreatingPartial(modelBuilder);
+
+            modelBuilder.Entity<Weryfikacja>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Weryfikacja");
+
+                entity.Property(e => e.DataWysz).HasColumnType("datetime");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Weryfikacja1)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .HasColumnName("Weryfikacja")
+                    .IsFixedLength(true);
+
+                entity.Property(e => e.WyszNip)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+            });
+
+         
+
+        OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

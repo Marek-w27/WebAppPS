@@ -24,7 +24,7 @@ namespace WebAppPS.Controllers
         public ActionResult<IEnumerable<KlienciDto>> GetAll()
         {
             var klienci = _dbContext
-                .Kliencis
+                .Klienci
                 .ToList();
 
 
@@ -41,7 +41,7 @@ namespace WebAppPS.Controllers
         public ActionResult<KlienciDto> Get([FromRoute] string rola)
         {
             var klienci =_dbContext
-                .Kliencis
+                .Klienci
                 .FirstOrDefault(x => x.Rola == rola);
 
             if (klienci is null)
