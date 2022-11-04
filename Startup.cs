@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,8 +29,10 @@ namespace WebAppPS
         {
 
             services.AddControllers();
-            services.AddDbContext<RekrutacjaContext>();
             services.AddAutoMapper(this.GetType().Assembly);
+            services.AddDbContext<RekrutacjaContext>(options => options
+                    .UseLazyLoadingProxies()
+                    .UseSqlServer("Server=DESKTOP-LV3SD93\\SQLEXPRESS;Database=Rekrutacja;Trusted_Connection=True;"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -20,13 +18,20 @@ namespace WebAppPS.Models
         public virtual DbSet<Klienci> Kliencis { get; set; }
         public virtual DbSet<KlienciKontrahenci> KlienciKontrahencis { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-LV3SD93\\SQLEXPRESS;Database=Rekrutacja;Trusted_Connection=True;");
-            }
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+
+        //    optionsBuilder.UseLazyLoadingProxies();
+
+
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseSqlServer("Server=DESKTOP-LV3SD93\\SQLEXPRESS;Database=Rekrutacja;Trusted_Connection=True;");
+        //    }
+       // }
+
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

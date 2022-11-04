@@ -28,6 +28,7 @@ namespace WebAppPS.Controllers
                 .ToList();
 
 
+
             var klienciDto = _mapper.Map<List<KlienciDto>>(klienci);
 
             return Ok(klienciDto);
