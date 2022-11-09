@@ -15,7 +15,7 @@ namespace WebAppPS.Models
             : base(options)
         {
         }
-
+        `
         public virtual DbSet<Klienci> Klienci { get; set; }
         public virtual DbSet<KlienciKontrahenci> KlienciKontrahencis { get; set; }
 

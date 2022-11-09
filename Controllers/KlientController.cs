@@ -9,7 +9,7 @@ using WebAppPS.Models;
 
 namespace WebAppPS.Controllers
 {
-    [Route("api/klient")]
+    [Route("api/Weryfication")]
     public class KlientController : ControllerBase
     {
         private readonly RekrutacjaContext _dbContext;
@@ -37,12 +37,13 @@ namespace WebAppPS.Controllers
 
 
 
-        [HttpGet("{rola}")]
-        public ActionResult<KlienciDto> Get([FromRoute] string rola)
+    [HttpGet("{nip}")]
+        public ActionResult<KlienciDto> Get([FromRoute] string nip)
         {
+            var date = DateTime.Now;
             var klienci =_dbContext
                 .Klienci
-                .FirstOrDefault(x => x.Rola == rola);
+                .FirstOrDefault(x => x.Nip == nip);
 
             if (klienci is null)
             {
