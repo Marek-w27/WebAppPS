@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebAppPS.Entity;
+using WebAppPS.Entity.ViewModels;
 
 #nullable disable
 
@@ -20,6 +21,10 @@ namespace WebAppPS.Models
         public virtual DbSet<KlienciKontrahenci> KlienciKontrahencis { get; set; }
 
         public virtual DbSet<Weryfikacja> Weryfikacja { set; get; }
+
+        public virtual DbSet<WeryfikacjaAll> ViewWeryfikacjaAlls { get; set; }
+        public virtual DbSet<WeryfikacjaFaktorant> ViewWeryfikacjaFaktorants { get; set; }
+        
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
@@ -116,7 +121,18 @@ namespace WebAppPS.Models
                     .IsFixedLength(true);
             });
 
-         
+            modelBuilder.Entity<WeryfikacjaAll>(entity =>
+            {
+                entity.ToView("View_WeryfikacjaAll");
+                entity.HasNoKey();
+            });
+
+            modelBuilder.Entity<WeryfikacjaFaktorant>( entity =>
+            {
+                entity.ToView("View_WeryfikacjaFaktorant");
+                entity.HasNoKey();
+
+            });
 
         OnModelCreatingPartial(modelBuilder);
         }

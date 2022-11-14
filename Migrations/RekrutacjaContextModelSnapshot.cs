@@ -20,6 +20,52 @@ namespace WebAppPS.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("WebAppPS.Entity.ViewModels.WeryfikacjaAll", b =>
+                {
+                    b.Property<DateTime?>("DataDodania")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NazwaPelna")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Profil")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rola")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToView("View_WeryfikacjaAll");
+                });
+
+            modelBuilder.Entity("WebAppPS.Entity.ViewModels.WeryfikacjaFaktorant", b =>
+                {
+                    b.Property<DateTime?>("DataPodpisaniaUmowy")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Datadodania")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("LimitNaUmowie")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("NazwaPelna")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Profil")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rola")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToView("View_WeryfikacjaFaktorant");
+                });
+
             modelBuilder.Entity("WebAppPS.Entity.Weryfikacja", b =>
                 {
                     b.Property<DateTime?>("DataWysz")
