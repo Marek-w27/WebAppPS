@@ -92,8 +92,8 @@ namespace WebAppPS.Controllers
                     }
 
 
-                    
-                    
+
+                    weryfikacja.Weryfikacja1 = "WeryfikacjaAll";
 
                     _dbContext.Weryfikacja.Add(weryfikacja);
                     _dbContext.SaveChanges();
