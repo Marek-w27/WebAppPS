@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebAppPS.Entity;
+using WebAppPS.Entity.ViewModels;
 using WebAppPS.Models;
 
 namespace WebAppPS.Controllers
@@ -21,36 +24,85 @@ namespace WebAppPS.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<KlienciDto>> GetAll()
+        public ActionResult<IEnumerable<WeryfikacjaAll>> GetAll()
         {
             var klienci = _dbContext
-                .Klienci
+                .ViewWeryfikacjaAlls
                 .ToList();
 
 
 
-            var klienciDto = _mapper.Map<List<KlienciDto>>(klienci);
+            
 
-            return Ok(klienciDto);
+            return Ok(klienci);
         }
 
 
 
 
     [HttpGet("{nip}")]
-        public ActionResult<KlienciDto> Get([FromRoute] string nip)
+        public ActionResult<WeryfikacjaAll> Get([FromRoute] string nip)
         {
-            var date = DateTime.Now;
-            var klienci =_dbContext
-                .Klienci
+            Weryfikacja weryfikacja = new Weryfikacja()
+            {
+                Id = Guid.NewGuid(),
+                WyszNip = nip,
+                DataWysz = DateTime.Now,
+                
+            };
+
+
+            var klienci = _dbContext
+                .ViewWeryfikacjaAlls
                 .FirstOrDefault(x => x.Nip == nip);
 
-            if (klienci is null)
+
+
+            if (klienci != null)
+
             {
-                return NotFound();
+                if (klienci.Rola.Equals("Faktorant"))
+                {
+                    var klienci2 = _dbContext
+                   .ViewWeryfikacjaFaktorants
+                   .FirstOrDefault(x => x.Nip == nip);
+
+
+
+
+                    if (klienci2 is null)
+                    {
+                        return NotFound();
+                    }
+
+                    weryfikacja.Weryfikacja1 = "WeryfikacjaFaktorant";
+
+
+                    _dbContext.Weryfikacja.Add(weryfikacja);
+                    _dbContext.SaveChanges();
+
+                    return Ok(klienci2);
+                }
+                else
+                {
+
+                    if (klienci is null)
+                    {
+                        return NotFound();
+                    }
+
+
+                    
+                    
+
+                    _dbContext.Weryfikacja.Add(weryfikacja);
+                    _dbContext.SaveChanges();
+
+
+                    return Ok(klienci);
+                }
             }
-            var klienciDto = _mapper.Map<KlienciDto>(klienci);
-            return Ok(klienciDto);
+            else return NotFound();
         }
     }
 }

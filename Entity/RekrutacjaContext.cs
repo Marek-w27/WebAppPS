@@ -101,13 +101,14 @@ namespace WebAppPS.Models
 
             modelBuilder.Entity<Weryfikacja>(entity =>
             {
-                entity.HasNoKey();
 
-                entity.ToTable("Weryfikacja");
 
-                entity.Property(e => e.DataWysz).HasColumnType("datetime");
+            entity.ToTable("Weryfikacja");
+
+            entity.Property(e => e.DataWysz).HasColumnType("datetime");
 
                 entity.Property(e => e.Id).HasColumnName("id");
+            
 
                 entity.Property(e => e.Weryfikacja1)
                     .IsRequired()
