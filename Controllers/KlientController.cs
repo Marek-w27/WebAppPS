@@ -24,10 +24,10 @@ namespace WebAppPS.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<WeryfikacjaAll>> GetAll()
+        public ActionResult<IEnumerable<Weryfikacja>> GetAll()
         {
             var klienci = _dbContext
-                .ViewWeryfikacjaAlls
+                .Weryfikacja
                 .ToList();
 
 
