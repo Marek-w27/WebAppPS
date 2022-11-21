@@ -16,7 +16,7 @@ namespace WebAppPS.Models
             : base(options)
         {
         }
-        
+
         public virtual DbSet<Klienci> Klienci { get; set; }
         public virtual DbSet<KlienciKontrahenci> KlienciKontrahencis { get; set; }
 
@@ -24,7 +24,7 @@ namespace WebAppPS.Models
 
         public virtual DbSet<WeryfikacjaAll> ViewWeryfikacjaAlls { get; set; }
         public virtual DbSet<WeryfikacjaFaktorant> ViewWeryfikacjaFaktorants { get; set; }
-        
+
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
@@ -36,7 +36,7 @@ namespace WebAppPS.Models
         //    {
         //        optionsBuilder.UseSqlServer("Server=DESKTOP-LV3SD93\\SQLEXPRESS;Database=Rekrutacja;Trusted_Connection=True;");
         //    }
-       // }
+        // }
 
 
 
@@ -103,12 +103,12 @@ namespace WebAppPS.Models
             {
 
 
-            entity.ToTable("Weryfikacja");
+                entity.ToTable("Weryfikacja");
 
-            entity.Property(e => e.DataWysz).HasColumnType("datetime");
+                entity.Property(e => e.DataWysz).HasColumnType("datetime");
 
                 entity.Property(e => e.Id).HasColumnName("id");
-            
+
 
                 entity.Property(e => e.Weryfikacja1)
                     .IsRequired()
@@ -128,14 +128,14 @@ namespace WebAppPS.Models
                 entity.HasNoKey();
             });
 
-            modelBuilder.Entity<WeryfikacjaFaktorant>( entity =>
+            modelBuilder.Entity<WeryfikacjaFaktorant>(entity =>
             {
                 entity.ToView("View_WeryfikacjaFaktorant");
                 entity.HasNoKey();
 
             });
 
-        OnModelCreatingPartial(modelBuilder);
+            OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
