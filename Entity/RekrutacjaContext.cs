@@ -8,14 +8,7 @@ namespace WebAppPS.Models
 {
     public partial class RekrutacjaContext : DbContext
     {
-        public RekrutacjaContext()
-        {
-        }
-
-        public RekrutacjaContext(DbContextOptions<RekrutacjaContext> options)
-            : base(options)
-        {
-        }
+      
 
         public virtual DbSet<Klienci> Klienci { get; set; }
         public virtual DbSet<KlienciKontrahenci> KlienciKontrahencis { get; set; }
@@ -36,7 +29,13 @@ namespace WebAppPS.Models
         //    {
         //        optionsBuilder.UseSqlServer("Server=DESKTOP-LV3SD93\\SQLEXPRESS;Database=Rekrutacja;Trusted_Connection=True;");
         //    }
-        // }
+        //}
+
+
+        public RekrutacjaContext(DbContextOptions<RekrutacjaContext> options)
+    : base(options)
+        { }
+
 
 
 
@@ -120,6 +119,11 @@ namespace WebAppPS.Models
                     .IsRequired()
                     .HasMaxLength(10)
                     .IsFixedLength(true);
+
+                entity.Property(e => e.Wynik)
+                .IsRequired()
+                .HasMaxLength(250)
+                .IsFixedLength(true);
             });
 
             modelBuilder.Entity<WeryfikacjaAll>(entity =>

@@ -9,32 +9,27 @@ using Microsoft.EntityFrameworkCore;
 using WebAppPS.Entity;
 using WebAppPS.Entity.ViewModels;
 using WebAppPS.Models;
+using WebAppPS.Services;
 
 namespace WebAppPS.Controllers
 {
     [Route("api/Weryfication")]
     public class KlientController : ControllerBase
     {
-        private readonly RekrutacjaContext _dbContext;
-        private readonly IMapper _mapper;
 
-        public KlientController(RekrutacjaContext dbContext, IMapper mapper)
+        private readonly IKlientService _klientService;
+
+
+        public KlientController(IKlientService klientService )
         {
-            _dbContext = dbContext;
-            _mapper = mapper;
+            _klientService = klientService;
         }
         [HttpGet]
         public ActionResult<IEnumerable<Weryfikacja>> GetAll()
         {
-            var klienci = _dbContext
-                .Weryfikacja
-                .ToList();
+            var WeryfikacjaDto = _klientService.PobierzListeWeryfikacji();
 
-
-
-            
-
-            return Ok(klienci);
+            return Ok(WeryfikacjaDto);
         }
 
 
@@ -43,66 +38,9 @@ namespace WebAppPS.Controllers
     [HttpGet("{nip}")]
         public ActionResult<WeryfikacjaAll> Get([FromRoute] string nip)
         {
-            Weryfikacja weryfikacja = new Weryfikacja()
-            {
-                Id = Guid.NewGuid(),
-                WyszNip = nip,
-                DataWysz = DateTime.Now,
-                
-            };
+            var WeryfikacjaNowa = _klientService.NowaWeryfikacja(nip);
 
-
-            var klienci = _dbContext
-                .ViewWeryfikacjaAlls
-                .FirstOrDefault(x => x.Nip == nip);
-
-
-
-            if (klienci != null)
-
-            {
-                if (klienci.Rola.Equals("Faktorant"))
-                {
-                    var klienci2 = _dbContext
-                   .ViewWeryfikacjaFaktorants
-                   .FirstOrDefault(x => x.Nip == nip);
-
-
-
-
-                    if (klienci2 is null)
-                    {
-                        return NotFound();
-                    }
-
-                    weryfikacja.Weryfikacja1 = "WeryfikacjaFaktorant";
-
-
-                    _dbContext.Weryfikacja.Add(weryfikacja);
-                    _dbContext.SaveChanges();
-
-                    return Ok(klienci2);
-                }
-                else
-                {
-
-                    if (klienci is null)
-                    {
-                        return NotFound();
-                    }
-
-
-
-                    weryfikacja.Weryfikacja1 = "WeryfikacjaAll";
-
-                    _dbContext.Weryfikacja.Add(weryfikacja);
-                    _dbContext.SaveChanges();
-
-
-                    return Ok(klienci);
-                }
-            }
-            else return NotFound();
+            return Ok(WeryfikacjaNowa);
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAppPS.Models;
+using WebAppPS.Services;
 
 namespace WebAppPS
 {
@@ -30,9 +31,10 @@ namespace WebAppPS
 
             services.AddControllers();
             services.AddAutoMapper(this.GetType().Assembly);
-            services.AddDbContext<RekrutacjaContext>(options => options
-                    .UseLazyLoadingProxies()
+            services.AddScoped<IKlientService, KlientService>();
+            services.AddDbContext<RekrutacjaContext>(options => options.UseLazyLoadingProxies()
                     .UseSqlServer("Server=DESKTOP-LV3SD93\\SQLEXPRESS;Database=Rekrutacja;Trusted_Connection=True;"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

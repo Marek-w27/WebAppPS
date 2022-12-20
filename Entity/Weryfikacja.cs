@@ -12,5 +12,6 @@ namespace WebAppPS.Entity
         public DateTime? DataWysz { set; get; }
         public string WyszNip { get; set; } 
         public string Weryfikacja1 { get; set; }
+        public string Wynik { get; set; }
     }
 }
