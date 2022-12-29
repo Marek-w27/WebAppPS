@@ -121,7 +121,6 @@ namespace WebAppPS.Models
                     .IsFixedLength(true);
 
                 entity.Property(e => e.Wynik)
-                .IsRequired()
                 .HasMaxLength(250)
                 .IsFixedLength(true);
             });

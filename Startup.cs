@@ -33,7 +33,7 @@ namespace WebAppPS
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<IKlientService, KlientService>();
             services.AddDbContext<RekrutacjaContext>(options => options.UseLazyLoadingProxies()
-                    .UseSqlServer("Server=DESKTOP-LV3SD93\\SQLEXPRESS;Database=Rekrutacja;Trusted_Connection=True;"));
+                    .UseSqlServer("Server=DESKTOP-LV3SD93\\SQLEXPRESS;Database=PlaTrans;Trusted_Connection=True;"));
 
         }
 
